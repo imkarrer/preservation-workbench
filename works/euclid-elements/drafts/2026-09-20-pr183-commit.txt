@@ -1,0 +1,16 @@
+Resolve numeric-looking element names before coercing to numbers (#155)
+
+Java's selectDataChoice tried Integer.parseInt(token) first and fell
+through to lookupElement on NumberFormatException. parseInt rejects
+surrounding whitespace, so seventen.html's points named "1 ", "2 ", ...
+(trailing space) were names, never integers. JS Number() trims, so
+parseParam turned every reference into the integer 1, 2, ... and nine
+elements on that page failed on arity.
+
+parseParam now coerces only tokens with no surrounding whitespace;
+padded tokens stay strings. Slate.convertParams tries lookupElement on
+a string as before and, on a miss, coerces a numeric-looking string to
+an integer arg instead of throwing. Name lookup wins when both apply.
+
+Snapshot suite: 704 scenes bit-identical, round/seventen/slate2 now
+draws all 12 authored elements (was 3).

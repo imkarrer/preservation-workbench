@@ -1,0 +1,4 @@
+.venv/
+.flox/run/
+.flox/cache/
+.flox/log/
