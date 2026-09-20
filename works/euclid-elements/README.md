@@ -6,9 +6,9 @@ Upstream: [brownnrl/euclid](https://github.com/brownnrl/euclid) (geomlib) ·
 [brownnrl/euclids-elements.org](https://github.com/brownnrl/euclids-elements.org)
 (gh-pages publish target). Our fork: `imkarrer/euclid`.
 
-Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahimsag/canberead)
-(CC-BY-4.0; coordinate-baked figures, Fitzpatrick prose — check the prose
-license before reusing anything but layout data) and
+Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahimsag/canberead) (now `ibrahimsag/read`)
+(code CC-BY-4.0; coordinate-baked figures; the prose is Fitzpatrick's 2007 translation, which carries **no licence** — silence means all rights reserved, so use canberead for layout data only, never its prose) and
+
 [osolmaz/manim-euclid-elements](https://github.com/osolmaz/manim-euclid-elements)
 (MIT; Manim video from canberead JSON).
 
@@ -36,3 +36,14 @@ and `NODE_OPTIONS=--no-experimental-strip-types` (Node 24 otherwise bypasses
 `ts-node/register`).
 
 `drafts/` holds text before it is posted upstream, dated.
+
+## Text rights (verified 2026-09-20)
+
+- Heath 1908 and 1926 *Elements*: public domain in the US; usable verbatim
+  including Heath's commentary. Scans on IA / HathiTrust; Perseus has a TEI of
+  the text with **empty** figure elements.
+- Joyce's edition: all rights reserved; Brown's May 2026 permission is
+  "specific; not transitive". Our work inside Brown's repos is covered.
+  Anything of our own carrying Joyce's prose needs Joyce's permission to us.
+- Green Lion Press 2002: new typesetting, redrawn diagrams, corrections —
+  not usable for anything.
