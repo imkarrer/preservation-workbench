@@ -29,9 +29,13 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-    subgraph PAGE[contents.lr - one file per proposition]
-        PROSE[Narrative: Joyce's prose<br/>read-only, NAME tokens]
-        SCRIPT[script tag: geomlib.init<br/>elements: construction strings<br/>aliases<br/>slides: text, visible, highlighted,<br/>animations by enum geomlib.A.Line.x,<br/>justifications]
+    subgraph PAGE[contents.lr - prop_section flow block]
+        ST[statement - html field]
+        subgraph PROOF[proof - markdown field]
+            PROSE[Narrative: Joyce's prose<br/>read-only, NAME tokens]
+            SCRIPT[figure: script tag geomlib.init<br/>elements: construction strings<br/>aliases<br/>slides: text, visible, highlighted,<br/>animations by enum geomlib.A.Line.x,<br/>justifications<br/>resolveJustification function]
+        end
+        GU[guide - markdown field]
     end
     PROSE --- SCRIPT
     PAGE --> BUILD[lektor build<br/>lektor-eucrefs tokenizes NAME refs<br/>lektor-katex renders math]
@@ -43,12 +47,14 @@ flowchart TB
     style CHECK stroke:#c33,stroke-width:2px
 ```
 
-The red boxes are the seam. The deck is JavaScript embedded in markdown,
-so it can only be validated by execution, only consumed by geomlib, and every
-library rename (see upstream's #91 angle-marker rework column in the deck
-tracker) is a deck re-authoring pass.
+The red boxes are the seam. Upstream's structured-fields plan named four
+fields - statement, diagrams, proof, guide - and shipped three; the diagram
+script still lives inside the proof markdown. It can only be validated by
+execution and only consumed by geomlib; the 0.16 library bump produced 70
+diagnostics on 21 untouched pages because every deck is lockstepped to one
+pin.
 
-## Proposed: the deck is data (ADR 0002)
+## Proposed: new decks authored as data (ADR 0002)
 
 ```mermaid
 flowchart TB
@@ -72,10 +78,12 @@ flowchart TB
     V -->|gates| PUB[publish]
 ```
 
-Introduced additively: `init()` already takes an object; the deltas are string
-animation names beside the enums, a construction-name lookup, a validator entry
-point, and a Lektor field that stores the document and emits the script at
-build time. Legacy inline-script pages keep working.
+Not a migration. The 403 remaining decks are written as JSON-parseable
+literals - string animation names (geomlib accepts them today), no
+`.concat()`, no functions in `slides[]` - and schema-checked before the
+existing vm step. Book IV pilots it; the 62 existing decks are untouched
+until the discipline has proven itself. `resolveJustification` stays a
+function supplied at `init()`.
 
 ## Proposed, later: kernel and renderers (Phase 4)
 
@@ -101,7 +109,7 @@ explicit-transform fix for the XI.11 class of bug.
 flowchart LR
     P0[P0 workflow<br/>flox, siblings, beads] --> P1
     P1[P1 earn merges<br/>XI.11, #70, #156<br/>slideshow feedback<br/>Book IV decks] --> G1{{upstream trusts<br/>a second author}}
-    G1 --> P2[P2 deck document<br/>design issue, schema, Book I migration]
+    G1 --> P2[P2 deck discipline<br/>string-names doc PR, Book IV as JSON,<br/>schema check before vm step]
     P2 --> P3[P3 exporters<br/>SVG, Manim, GeoGebra]
     P2 --> P5[P5 other works<br/>Apollonius, Hilbert]
     P2 --> G2{{co-maintainer}}
