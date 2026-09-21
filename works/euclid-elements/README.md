@@ -17,6 +17,7 @@ Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahims
 | Date | Event |
 |---|---|
 | 2026-09-20 | [euclid#183](https://github.com/brownnrl/euclid/pull/183) merged (fixes #155, numeric-looking element names). Intro posted on #155; Nelson replied with roadmap. |
+| 2026-09-21 | Reply posted on [#155](https://github.com/brownnrl/euclid/issues/155#issuecomment-5754106719): offered XI.11 issue, slideshow feedback, Book IV decks as plain-data pilot; linked ADRs. Awaiting reply. |
 
 Deck backlog upstream: lektor #21–#31, one per Book III–XIII (417 props).
 Book I decks complete; Book II done; Book III under his review.
