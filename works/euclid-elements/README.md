@@ -18,6 +18,7 @@ Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahims
 |---|---|
 | 2026-09-20 | [euclid#183](https://github.com/brownnrl/euclid/pull/183) merged (fixes #155, numeric-looking element names). Intro posted on #155; Nelson replied with roadmap. |
 | 2026-09-21 | Reply posted on [#155](https://github.com/brownnrl/euclid/issues/155#issuecomment-5754106719): offered XI.11 issue, slideshow feedback, Book IV decks as plain-data pilot; linked ADRs. Awaiting reply. |
+| 2026-09-21 | Docs PRs [#185](https://github.com/brownnrl/euclid/pull/185) (string animation names) and [#186](https://github.com/brownnrl/euclid/pull/186) (api/architecture accuracy) opened. Book IV planning tables drafted (`book-iv/`). Slideshow feedback drafted (`drafts/`), awaiting a hands-on pass before posting. |
 
 Deck backlog upstream: lektor #21–#31, one per Book III–XIII (417 props).
 Book I decks complete; Book II done; Book III under his review.
