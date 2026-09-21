@@ -27,6 +27,8 @@ Placement (from research): the figure's position inside the proof prose is load-
 - P4 renderer independence: extract kernel from canvas (elements draw with ctx today); Renderer interface, canvas then SVG; unlocks accessibility, touch (#57), 3D/affine gizmo, explicit transforms (XI.11 class). Wait until co-maintainer.
 - P5 other works: Apollonius Conics (Heath 1896, PD), Hilbert Foundations (Townsend 1902, PD, Gutenberg). Same Lektor models + deck pipeline. Nelson's "biggest thing I would love to see".
 
+**Pipeline plan:** [docs/design/delivery-pipeline.md](docs/design/delivery-pipeline.md) reads Brown's process as pipeline stages, names the gaps for a corpus run, specifies the deck document lifecycle and the checks at each stage, and scopes the 3D capabilities Books XI–XIII need (beads pw-euz, pw-yya, pw-n8f).
+
 ## 5. Risks
 Single maintainer -> phases independent. Fidelity rule -> nothing touches prose. canberead prose is Fitzpatrick's translation -> reference data only, check license. Keep deck doc hand-authorable JSON. Own app deferred; becomes consumer #5.
 
