@@ -23,7 +23,7 @@ docs/adr/                decisions that were hard to reverse or would look odd w
 works/<work>/            per-work state: upstream links, next actions, drafts before posting
 scripts/bootstrap.sh     clone / sync the upstream repos as siblings of this one
 .flox/                   one dev environment shared by every sibling checkout (see Working here)
-.beads/                  (planned) one backlog spanning library issues, decks and drafts
+.beads/                  one backlog spanning library issues, decks and drafts (bd ready)
 ```
 
 ## Principles inherited from upstream
