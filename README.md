@@ -22,7 +22,7 @@ CONTEXT.md               glossary — the words we use and the ones we avoid
 docs/adr/                decisions that were hard to reverse or would look odd without context
 works/<work>/            per-work state: upstream links, next actions, drafts before posting
 scripts/bootstrap.sh     clone / sync the upstream repos as siblings of this one
-.flox/                   (planned) one dev environment shared by every sibling checkout
+.flox/                   one dev environment shared by every sibling checkout (see Working here)
 .beads/                  (planned) one backlog spanning library issues, decks and drafts
 ```
 
@@ -36,6 +36,19 @@ scripts/bootstrap.sh     clone / sync the upstream repos as siblings of this one
   render path bit-for-bit unchanged.
 
 ## Working here
+
+One flox environment serves this repo and all three sibling checkouts — Node 24
+(matches upstream CI), Python 3.12 + Lektor 3.3.13 in a gitignored `.venv/`,
+and `libuuid` for the prebuilt node-canvas binary. Activate it from anywhere:
+
+```bash
+flox activate -d ~/src/preservation-workbench
+```
+
+The hook exports `EUCLID_REPO`, `LEKTOR_REPO`, `EUCLIDS_REPO` and `NODE_PATH` at
+the sibling paths, so upstream's scripts (`check-decks.js`, `publish.sh`,
+`deploy-preview.sh`) run unmodified. Verified 2026-09-21: `npm run test:unit`
+in euclid, `lektor build`, and `check-decks.js` all pass through it.
 
 Sibling checkouts are expected at `../euclid`, `../euclids-elements-lektor`
 and `../euclids-elements.org` — upstream's own scripts assume those paths.

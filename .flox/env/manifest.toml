@@ -1,0 +1,52 @@
+schema-version = "1.16.0"
+
+# One development environment for the workbench and its sibling checkouts
+# (../euclid, ../euclids-elements-lektor, ../euclids-elements.org).
+# Activate from any of them with:  flox activate -d <path-to-this-repo>
+
+[install]
+nodejs_24.pkg-path = "nodejs_24"        # matches upstream CI (actions/setup-node 24)
+python312.pkg-path = "python312"        # Lektor 3.3.13 for the content repo
+util-linux.pkg-path = "util-linux"      # libuuid.so.1 for the prebuilt node-canvas binary
+util-linux.outputs = ["bin", "lib"]
+
+[vars]
+# Node 24 loads .ts natively and bypasses ts-node/register, which upstream's
+# mocha config relies on. Same flag CI would need if it ever hit it.
+NODE_OPTIONS = "--no-experimental-strip-types"
+
+[hook]
+on-activate = '''
+  # Sibling checkouts, at the paths upstream's scripts default to.
+  export WORKBENCH="$FLOX_ENV_PROJECT"
+  export EUCLID_REPO="$(cd "$WORKBENCH/.." && pwd)/euclid"
+  export EUCLIDS_GEOMLIB_REPO="$EUCLID_REPO"
+  export EUCLIDS_REPO="$(cd "$WORKBENCH/.." && pwd)/euclids-elements.org"
+  export LEKTOR_REPO="$(cd "$WORKBENCH/.." && pwd)/euclids-elements-lektor"
+
+  # The prebuilt canvas.node links libuuid; nix-built node uses the normal
+  # loader, so LD_LIBRARY_PATH is the knob (NIX_LD_LIBRARY_PATH is not).
+  export LD_LIBRARY_PATH="$FLOX_ENV/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+  # check-decks.js resolves node-canvas from the euclid checkout.
+  export NODE_PATH="$EUCLID_REPO/node_modules"
+
+  # Lektor lives in a venv inside the workbench (gitignored), pinned to the
+  # content repo's requirements.txt so the two can't drift.
+  VENV="$WORKBENCH/.venv"
+  REQ="$LEKTOR_REPO/requirements.txt"
+  if [ -f "$REQ" ]; then
+    if [ ! -x "$VENV/bin/lektor" ] || ! cmp -s "$REQ" "$VENV/.requirements.txt"; then
+      python3 -m venv "$VENV" >/dev/null
+      "$VENV/bin/pip" install -q -r "$REQ" && cp "$REQ" "$VENV/.requirements.txt"
+    fi
+    export PATH="$VENV/bin:$PATH"
+  fi
+'''
+
+[profile]
+
+[services]
+
+[options]
+systems = ["x86_64-linux", "aarch64-linux", "aarch64-darwin", "x86_64-darwin"]

@@ -1,0 +1,436 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "schema-version": "1.16.0",
+    "install": {
+      "nodejs_24": {
+        "pkg-path": "nodejs_24"
+      },
+      "python312": {
+        "pkg-path": "python312"
+      },
+      "util-linux": {
+        "pkg-path": "util-linux",
+        "outputs": [
+          "bin",
+          "lib"
+        ]
+      }
+    },
+    "vars": {
+      "NODE_OPTIONS": "--no-experimental-strip-types"
+    },
+    "hook": {
+      "on-activate": "  # Sibling checkouts, at the paths upstream's scripts default to.\n  export WORKBENCH=\"$FLOX_ENV_PROJECT\"\n  export EUCLID_REPO=\"$(cd \"$WORKBENCH/..\" && pwd)/euclid\"\n  export EUCLIDS_GEOMLIB_REPO=\"$EUCLID_REPO\"\n  export EUCLIDS_REPO=\"$(cd \"$WORKBENCH/..\" && pwd)/euclids-elements.org\"\n  export LEKTOR_REPO=\"$(cd \"$WORKBENCH/..\" && pwd)/euclids-elements-lektor\"\n\n  # The prebuilt canvas.node links libuuid; nix-built node uses the normal\n  # loader, so LD_LIBRARY_PATH is the knob (NIX_LD_LIBRARY_PATH is not).\n  export LD_LIBRARY_PATH=\"$FLOX_ENV/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"\n\n  # check-decks.js resolves node-canvas from the euclid checkout.\n  export NODE_PATH=\"$EUCLID_REPO/node_modules\"\n\n  # Lektor lives in a venv inside the workbench (gitignored), pinned to the\n  # content repo's requirements.txt so the two can't drift.\n  VENV=\"$WORKBENCH/.venv\"\n  REQ=\"$LEKTOR_REPO/requirements.txt\"\n  if [ -f \"$REQ\" ]; then\n    if [ ! -x \"$VENV/bin/lektor\" ] || ! cmp -s \"$REQ\" \"$VENV/.requirements.txt\"; then\n      python3 -m venv \"$VENV\" >/dev/null\n      \"$VENV/bin/pip\" install -q -r \"$REQ\" && cp \"$REQ\" \"$VENV/.requirements.txt\"\n    fi\n    export PATH=\"$VENV/bin:$PATH\"\n  fi\n"
+    },
+    "profile": {},
+    "options": {
+      "systems": [
+        "x86_64-linux",
+        "aarch64-linux",
+        "aarch64-darwin",
+        "x86_64-darwin"
+      ]
+    }
+  },
+  "packages": [
+    {
+      "attr_path": "nodejs_24",
+      "broken": false,
+      "derivation": "/nix/store/1a0cn85p1mwixhwy16db7v2652pz7l8g-nodejs-24.16.0.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs_24",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "nodejs-24.16.0",
+      "pname": "nodejs_24",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:13:20.510831Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "24.16.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/1zm1xb652wk1kscxbcvbryq8y45b0gy5-nodejs-24.16.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs_24",
+      "broken": false,
+      "derivation": "/nix/store/aay2n9r5ljwfvlva807p9f0p1vpwg7mb-nodejs-24.16.0.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs_24",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "nodejs-24.16.0",
+      "pname": "nodejs_24",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:42:00.480294Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "24.16.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/60vys190zxlx4k1jz0kyvk4vydzr7qml-nodejs-24.16.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs_24",
+      "broken": false,
+      "derivation": "/nix/store/yc1bpd21mkkawwxkq2zskmkqjmzwgv54-nodejs-24.16.0.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs_24",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "nodejs-24.16.0",
+      "pname": "nodejs_24",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:09:32.263259Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "24.16.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/v04l0kjhdvbzkzrnw6ryf43dp8v0qapv-nodejs-24.16.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs_24",
+      "broken": false,
+      "derivation": "/nix/store/k9jn43g1p70zs7l9vgxh57aarg2s2jkv-nodejs-24.16.0.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs_24",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "nodejs-24.16.0",
+      "pname": "nodejs_24",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:41:05.932913Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "24.16.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/zvj0hl7rhh0ccr5vkcg3ijs3xm3sgyac-nodejs-24.16.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python312",
+      "broken": false,
+      "derivation": "/nix/store/0scvydzrq1fwrd2g6qkxzwhfr74jb5bi-python3-3.12.13.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python312",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.12.13",
+      "pname": "python312",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:13:37.152128Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.12.13",
+      "outputs_to_install": [
+        "out",
+        "out",
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/65p6ipj712fb5igr9w1h5k5cb7bymj42-python3-3.12.13"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python312",
+      "broken": false,
+      "derivation": "/nix/store/yyqr2z480r6c13skh5afgksphr2lfzdp-python3-3.12.13.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python312",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.12.13",
+      "pname": "python312",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:42:22.928415Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.12.13",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/flj97zlvj6lz384brw7r5xa8hfmqbp2q-python3-3.12.13-debug",
+        "out": "/nix/store/wicbzqr46qxkh8nv4191fx8jdjrhya3i-python3-3.12.13"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python312",
+      "broken": false,
+      "derivation": "/nix/store/yli627mjkh5nykx1hv2yi5dnwh2n1692-python3-3.12.13.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python312",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.12.13",
+      "pname": "python312",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:09:53.026944Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.12.13",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/afd3xzw8afbbr1dsqjvb6xg2a5gah4vg-python3-3.12.13"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "python312",
+      "broken": false,
+      "derivation": "/nix/store/39fqik436whzb2vs7xckk644zmc65fwg-python3-3.12.13.drv",
+      "description": "High-level dynamically-typed programming language",
+      "install_id": "python312",
+      "license": "Python-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "python3-3.12.13",
+      "pname": "python312",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:41:29.493823Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "python3-3.12.13",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "debug": "/nix/store/sk5vgw3w0g8j9x0r261piqjczmgvqbb6-python3-3.12.13-debug",
+        "out": "/nix/store/d69yn2v7lzyh29rykj0ldnih67xps5s0-python3-3.12.13"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "util-linux",
+      "broken": false,
+      "derivation": "/nix/store/59ri7azs6lc3bynblyb1bvk7amd3an05-util-linux-2.42.drv",
+      "description": "Set of system utilities for Linux",
+      "install_id": "util-linux",
+      "license": "[ GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, BSD-3-Clause, BSD-4-Clause-UC, Public Domain ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "util-linux-2.42",
+      "pname": "util-linux",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:15:39.076292Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.42",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/qbhwjjrwx29myz2ksjpz4szb86dd017d-util-linux-2.42-bin",
+        "dev": "/nix/store/v6iqdwn3ii3ykxhzf9jam66da9k9pv1w-util-linux-2.42-dev",
+        "lib": "/nix/store/8fj5w50d82fkclvwm645ylyllmhrmkqf-util-linux-2.42-lib",
+        "login": "/nix/store/hfprsfh6pb1wqsbmysj88n1j50395axr-util-linux-2.42-login",
+        "man": "/nix/store/sh8ry1n3h1xlfsq49qapsrmsbr7484ki-util-linux-2.42-man",
+        "out": "/nix/store/dilf97pgk2h33km88vhipp0izx9bxwhf-util-linux-2.42"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "util-linux",
+      "broken": false,
+      "derivation": "/nix/store/s9la81inq3j4qikv0y0arszg26yg721a-util-linux-2.42.drv",
+      "description": "Set of system utilities for Linux",
+      "install_id": "util-linux",
+      "license": "[ GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, BSD-3-Clause, BSD-4-Clause-UC, Public Domain ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "util-linux-2.42",
+      "pname": "util-linux",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T03:44:48.850611Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.42",
+      "outputs_to_install": [
+        "bin",
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/jjfyr5h08vcv9jlrka3pslg6haw25afn-util-linux-2.42-bin",
+        "debug": "/nix/store/z8cd7vfgjqq0pdd4iq9b7yj8vynd2pvp-util-linux-2.42-debug",
+        "dev": "/nix/store/gw137vc80h7959pha4wr61jl55mrgjzk-util-linux-2.42-dev",
+        "lastlog": "/nix/store/4lv9rcgizmvg99i7f4qw5kji0gv26gzx-util-linux-2.42-lastlog",
+        "lib": "/nix/store/b4nqamwq8130x5jcz7ygfqmpzlsyczq9-util-linux-2.42-lib",
+        "login": "/nix/store/k6f8kl3ysazwnnv0qkhhcsk95nwb4aa7-util-linux-2.42-login",
+        "man": "/nix/store/dydxh6iyq011v21kpm45gzg25za35h38-util-linux-2.42-man",
+        "mount": "/nix/store/c3n8x9xqc7jbakbv2bl4jshwiwx2x98q-util-linux-2.42-mount",
+        "out": "/nix/store/dmfy8z7a4yn3nam1vnnawwfmd63mng71-util-linux-2.42",
+        "swap": "/nix/store/fp46lqp7dawahdd11nylczwbfskr6mas-util-linux-2.42-swap"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "util-linux",
+      "broken": false,
+      "derivation": "/nix/store/07m7gx6di0064av13197cxk56krpfn3f-util-linux-2.42.drv",
+      "description": "Set of system utilities for Linux",
+      "install_id": "util-linux",
+      "license": "[ GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, BSD-3-Clause, BSD-4-Clause-UC, Public Domain ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "util-linux-2.42",
+      "pname": "util-linux",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:12:23.234855Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.42",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/mmbqk2w73a98rdcyjimqp35zv3msdq65-util-linux-2.42-bin",
+        "dev": "/nix/store/2wl9vsz6yymygzwgmj2x7vj1fx13pv0x-util-linux-2.42-dev",
+        "lib": "/nix/store/65216f8xj41gfyy961lg61fdww2ch10w-util-linux-2.42-lib",
+        "login": "/nix/store/vvrjrcm148ddmhjha3crvypwdf63983h-util-linux-2.42-login",
+        "man": "/nix/store/bj0nficmwq0jjnmlm0kydb7jsm94rqvk-util-linux-2.42-man",
+        "out": "/nix/store/spxk97f1sfx0q9qdddqrgys1gmxhp1yr-util-linux-2.42"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "util-linux",
+      "broken": false,
+      "derivation": "/nix/store/sd13qqm7hk5w16j1791xym4f6dhkpdpb-util-linux-2.42.drv",
+      "description": "Set of system utilities for Linux",
+      "install_id": "util-linux",
+      "license": "[ GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, BSD-3-Clause, BSD-4-Clause-UC, Public Domain ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d407951447dcd00442e97087bf374aad70c04cea",
+      "name": "util-linux-2.42",
+      "pname": "util-linux",
+      "rev": "d407951447dcd00442e97087bf374aad70c04cea",
+      "rev_count": 1027867,
+      "rev_date": "2026-07-05T04:06:12Z",
+      "scrape_date": "2026-07-06T04:44:10.400377Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.42",
+      "outputs_to_install": [
+        "bin",
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/qjs15klpvpwz64pjdspy3mln6d54pd8f-util-linux-2.42-bin",
+        "debug": "/nix/store/7l5sq5pcy7m1kmmbfmym5xjvcmgq6vii-util-linux-2.42-debug",
+        "dev": "/nix/store/krdknpfx2cz2jxg1xp223zyy8h2l7laq-util-linux-2.42-dev",
+        "lastlog": "/nix/store/r36mwd5l0szp5mwmlyfkabdbmd84ad6s-util-linux-2.42-lastlog",
+        "lib": "/nix/store/vf5xyym3j82vx9fgb109q5gi7m983x1m-util-linux-2.42-lib",
+        "login": "/nix/store/l9ra4yk5khapd0cwi1q6djx7j9zzi232-util-linux-2.42-login",
+        "man": "/nix/store/79qcw9avkg62pr3qkb2rgrdrs4axh41v-util-linux-2.42-man",
+        "mount": "/nix/store/qq3x890gwa050lidi6zyxklrr3rbpxdl-util-linux-2.42-mount",
+        "out": "/nix/store/c2ndp3f1lxh38zp3ydm85qb52rcw97dn-util-linux-2.42",
+        "swap": "/nix/store/bb8bj6354lfp5m0141dh6brmf1v1cxcg-util-linux-2.42-swap"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}
