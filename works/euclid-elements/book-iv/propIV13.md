@@ -1,0 +1,31 @@
+# IV.13 — To inscribe a circle in a given equilateral and equiangular pentagon
+
+Canvas: `canvas_0` (pivot F). Existing: C, D free; CDEAB regularPolygon; E, A, B vertices; CF, DF (hidden bisector lines); F intersection; M, G, H, K, L feet (as intersections, hidden labels); AK, BL, CM, DG, EH; circ.
+
+**deferDraggables**: none.
+
+**Figure additions**
+- Sides: `AB;line;connect;A,B;0;0;0`, `BC;line;connect;B,C;0;0;0`, `CD;line;connect;C,D;0;0;0`, `DE;line;connect;D,E;0;0;0`, `EA;line;connect;E,A;0;0;0`.
+- Bisectors as segments and spokes: `CFseg;line;connect;C,F;0;0;0` (alias `"CF"` must not collide with the hidden bisector line `CF` — rename the existing hidden lines `CFbis`, `DFbis` at implementation), `DFseg`, `FB;line;connect;F,B;0;0;0`, `FA;line;connect;F,A;0;0;0`, `FE;line;connect;F,E;0;0;0`.
+- Perpendiculars: `FG;line;connect;F,G;0;0;0`, `FH;line;connect;F,H;0;0;0`, `FK;line;connect;F,K;0;0;0`, `FL;line;connect;F,L;0;0;0`, `FM;line;connect;F,M;0;0;0`.
+- Triangles: `BCF;polygon;triangle;B,C,F;0;0;0;0`, `DCF;polygon;triangle;D,C,F;0;0;0;0`, `FHC;polygon;triangle;F,H,C;0;0;0;0`, `FKC;polygon;triangle;F,K,C;0;0;0;0`.
+- Angle markers: `angBCF;sector;angleMarker;C,B,F`, `angDCF;sector;angleMarker;C,D,F`, `angCBF;sector;angleMarker;B,C,F`, `angCDF;sector;angleMarker;D,C,F`, `angABF;sector;angleMarker;B,A,F`, `angFHC;sector;angleMarker;H,F,C`, `angFKC;sector;angleMarker;K,F,C`. (⚠ BCF/DCF share C; CBF/ABF share B.)
+- aliases: `"HCF": "angBCF"`, `"KCF": "angDCF"`, `"FBC": "angCBF"`, `"GHKLM": "circ"`.
+
+| # | Slide text | Shown / hidden | Highlighted | Animation (mode) | Justs | Not yet implemented |
+|---|---|---|---|---|---|---|
+| 1 | Let {ABCDE\|CDEAB} be the given equilateral and equiangular pentagon. | CDEAB, A, B, C, D, E, sides | CDEAB | — | — | |
+| 2 | It is required to inscribe a circle in the pentagon {ABCDE\|CDEAB}. | (inherit) | CDEAB | — | — | |
+| 3 | Bisect the angles {BCD} and {CDE} by the straight lines {CF\|CFseg} and {DF\|DFseg} respectively. Join the straight lines {FB}, {FA}, and {FE} from the point {F} at which the straight lines {CF\|CFseg} and {DF\|DFseg} meet one another. | + angBCF, angDCF, angCDF, CFseg, DFseg, F, FB, FA, FE | CFseg, DFseg, F, FB, FA, FE | angBCF, angDCF "Sector.sweep"; CFseg "Line.straightEdgeConnect"; angCDF "Sector.sweep"; DFseg "Line.straightEdgeConnect"; F "Point.appear"; FB, FA, FE "Line.straightEdgeConnect" | bisect an angle — I.9 | |
+| 4 | Then, since {BC} equals {CD}, and {CF\|CFseg} common, the two sides {BC} and {CF\|CFseg} equal the two sides {DC\|CD} and {CF\|CFseg}, and the angle {BCF} equals the angle {DCF}, therefore the base {BF\|FB} equals the base {DF\|DFseg}, and the triangle {BCF} equals the triangle {DCF}, and the remaining angles equal the remaining angles, namely those opposite the equal sides. | + BCF, DCF | BC, CD, CFseg, angBCF, angDCF, FB, DFseg, BCF, DCF | BCF "Polygon.outline"; DCF "Polygon.outline" | side–angle–side — I.4 | |
+| 5 | Therefore the angle {CBF} equals the angle {CDF}. | + angCBF | angCBF, angCDF | angCBF "Sector.sweep" | — | |
+| 6 | And, since the angle {CDE} is double the angle {CDF}, and the angle {CDE} equals the angle {ABC}, while the angle {CDF} equals the angle {CBF}, therefore the angle {CBA} is also double the angle {CBF}. Therefore the angle {ABF} equals the angle {FBC\|angCBF}. Therefore the angle {ABC} is bisected by the straight line {BF\|FB}. | + angABF; − BCF, DCF, angBCF, angDCF | angCDF, angCBF, angABF, FB | angABF "Sector.sweep" | — | |
+| 7 | Similarly it can be proved that the angles {BAE} and {AED} are also bisected by the straight lines {FA} and {FE} respectively. | − angle markers | FA, FE | — | — | |
+| 8 | Now draw {FG}, {FH}, {FK}, {FL}, and {FM} from the point {F} perpendicular to the straight lines {AB}, {BC}, {CD}, {DE}, and {EA}. | + FG, FH, FK, FL, FM, G, H, K, L, M | FG, FH, FK, FL, FM | FG, FH, FK, FL, FM "Line.straightEdgeConnect" (parallel) | perpendiculars from a point — I.12 | |
+| 9 | Then, since the angle {HCF\|angBCF} equals the angle {KCF\|angDCF}, and the right angle {FHC} also equals the angle {FKC}, {FHC} and {FKC} are two triangles having two angles equal to two angles and one side equal to one side, namely {FC\|CFseg} which is common to them and opposite one of the equal angles, therefore they also have the remaining sides equal to the remaining sides. Therefore the perpendicular {FH} equals the perpendicular {FK}. | + angBCF, angDCF, angFHC, angFKC, FHC, FKC | angBCF, angDCF, angFHC, angFKC, FHC, FKC, CFseg, FH, FK | angFHC, angFKC "Sector.sweep"; FHC, FKC "Polygon.outline" | two angles and a side — I.26 | |
+| 10 | Similarly it can be proved that each of the straight lines {FL}, {FM}, and {FG} also equals each of the straight lines {FH} and {FK}, therefore the five straight lines {FG}, {FH}, {FK}, {FL}, and {FM} equal one another. | − markers, FHC, FKC | FG, FH, FK, FL, FM | — | — | |
+| 11 | Therefore the circle described with center {F} and radius one of the straight lines {FG}, {FH}, {FK}, {FL}, or {FM} also passes through the remaining points, and it touches the straight lines {AB}, {BC}, {CD}, {DE}, and {EA}, because the angles at the points {G}, {H}, {K}, {L}, and {M} are right. | + circ | F, circ | circ "Circle.compass" | — | |
+| 12 | For, if it does not touch them. but cuts them, it will result that the straight line drawn at right angles to the diameter of the circle from its end falls within the circle, which was proved absurd. Therefore the circle described with center {F} and radius one of the straight lines {FG}, {FH}, {FK}, {FL}, or {FM} does not cut the straight lines {AB}, {BC}, {CD}, {DE}, and {EA}. Therefore it touches them. | (inherit) | circ, sides | — | — III.16 | |
+| 13 | Let it be described, as {GHKLM\|circ}. Therefore a circle has been inscribed in the given equilateral and equiangular pentagon. | (inherit) | circ, CDEAB | — | Q.E.F. | |
+
+Notes: the source has a typo — "if it does not touch them. but cuts them" (full stop for a comma). Per the editorial-footnote convention that is a footnote in the prose, not a caption change; the caption carries the sentence as printed. The existing `AK, BL, CM, DG, EH` lines (vertex-to-opposite-foot) are Joyce's figure decoration and are not named in the proof; keep them in the static figure, out of the slides.
