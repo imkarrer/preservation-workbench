@@ -389,7 +389,7 @@ trajectory every entry here should follow.
 |---|---|---|---|---|
 | **L0 local** | flox env on a dev box | `npm run check` in this repo | P1–P9 on changed documents; G1 on a lektor worktree | seconds |
 | **L1 bead-loop gate** | the bead's worktree of the target, inside the flox env | after the worker's commit, once more after its fix round | the gate for the document's transition (§5.4) | seconds to a minute |
-| **L2 workbench CI** | GitHub Actions on this repo: `actions/setup-node` 24, `npm ci`, `actions/checkout` of `brownnrl/euclid` at the pinned commit and of the lektor repo at `main` as siblings, node-canvas from npm; no flox, no self-hosted agent, so the same job runs anywhere Actions runs | every push and PR here; nightly; on a pin change | P1–P10 on every document; X2; legacy suite (§5.7.4); mermaid; nightly U1 against euclid `main` and U3; X1 on pin change | minutes; U1 tens of minutes on a hosted runner, which is acceptable nightly |
+| **L2 workbench CI** | GitHub Actions on this repo inside the same flox environment developers and the bead-loop worktree use: `flox/install-flox-action@v2`, then `flox/activate-action@v2` with `command:` against this repo's `.flox/` (its hook exports `EUCLID_REPO`, `LEKTOR_REPO`, `NODE_PATH` and builds the Lektor venv); `actions/checkout` of `brownnrl/euclid` at the pinned commit and of the lektor repo at `main` into the sibling paths the hook expects; `npm ci` in both | every push and PR here; nightly; on a pin change | P1–P10 on every document; X2; legacy suite (§5.7.4); mermaid; nightly U1 against euclid `main` and U3; X1 on pin change | minutes; U1 tens of minutes on a hosted runner, acceptable nightly |
 | **L3 upstream CI** | **His repos, his call.** euclid already runs GitHub Actions; the lektor repo runs nothing. We offer one workflow file (pw-euz.8) that runs his own three publish checks, and the checks in this document are packaged so that adopting any of them is one `npx` line in that file. He decides which, if any, run there | his PRs | G4, D2 at minimum; G1, G3 if he wants them | minutes |
 | **L4 post-publish** | L2, scheduled | after H2 | U2, U3 | seconds |
 
@@ -397,9 +397,14 @@ L1 is what makes the loop self-correcting; L2 is what makes the corpus
 converge; L3 is the smallest thing that gives his repo a safety net, and
 only if he wants it; L0 is for people.
 
-Portability rule: every check runs with Node and npm alone. The flox
-environment (`.flox/`) is how a developer and the bead-loop worktree get
-the same toolchain; it is never a dependency of a check. Where a check
+One environment, three places: `.flox/env/manifest.toml` is the toolchain
+for a developer's shell, for the bead-loop worktree (bl-5j1 runs the loop's
+units inside flox) and for L2, so a check that passes in one passes in the
+others, and `manifest.lock` is one of the pins evidence records (§5.6).
+
+Portability rule, narrowed to what we offer him: every check we propose for
+L3 runs with Node and npm alone, because his repo's CI is his and must not
+inherit our environment. Where a check
 needs geomlib internals that the npm package does not export (G5, R1, R2),
 it checks out `brownnrl/euclid` at the commit in `pipeline/pins.json`
 and compiles from source, exactly as `euclid/tests/` does; when the
@@ -583,7 +588,7 @@ criteria, `bd blocked` the chain.
 | pw-euz.9 | D4 Playwright walk of Present mode | pw-euz.5 |
 | pw-euz.10 | `deck-authoring` skill | pw-xl2 |
 | pw-euz.11 | gate command and `gates.json`: transition from state, checks per gate, findings format, evidence reproduction (P10) | pw-euz.1 |
-| pw-euz.12 | GitHub Actions on this repo (L2): setup-node, sibling checkouts at pinned commits, nightly U1, X2, X3; no flox dependence | pw-euz.11 |
+| pw-euz.12 | GitHub Actions on this repo (L2) inside the repo's flox env via flox's actions; sibling checkouts at pinned commits; nightly U1, X2, X3 | pw-euz.11 |
 | pw-euz.13 | legacy 62 as calibration corpus: reverse-extract by execution, run P1–P7 and R1–R4, record findings | pw-euz.1, pw-euz.5 |
 | pw-euz.14 | `pipeline status` ledger and U3 consistency | pw-euz.1 |
 | pw-yya | epic: 3D capabilities (§7) | — |
