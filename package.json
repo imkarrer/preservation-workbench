@@ -1,0 +1,13 @@
+{
+  "name": "preservation-workbench",
+  "private": true,
+  "description": "Tooling for the workbench itself (not for the upstream repos).",
+  "type": "module",
+  "scripts": {
+    "check:mermaid": "node scripts/check-mermaid.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "mermaid": "^11.9.0"
+  }
+}

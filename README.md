@@ -50,6 +50,10 @@ the sibling paths, so upstream's scripts (`check-decks.js`, `publish.sh`,
 `deploy-preview.sh`) run unmodified. Verified 2026-09-21: `npm run test:unit`
 in euclid, `lektor build`, and `check-decks.js` all pass through it.
 
+Before pushing a doc with diagrams, `npm run check:mermaid` parses every
+Mermaid block with the real parser (no browser needed); GitHub refuses to
+render anything it rejects. `npm install` once inside the env to get it.
+
 Sibling checkouts are expected at `../euclid`, `../euclids-elements-lektor`
 and `../euclids-elements.org` — upstream's own scripts assume those paths.
 `scripts/bootstrap.sh` sets them up.
