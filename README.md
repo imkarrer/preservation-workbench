@@ -54,6 +54,13 @@ Before pushing a doc with diagrams, `npm run check:mermaid` parses every
 Mermaid block with the real parser (no browser needed); GitHub refuses to
 render anything it rejects. `npm install` once inside the env to get it.
 
+When a deck branch changes a page's prose, `node scripts/check-prose-fidelity.mjs
+$LEKTOR_REPO` proves the only change was tokenization — it normalises `{NAME}`
+refs, markdown emphasis, HTML and `[!just]` markers away and compares word for
+word against the committed version. It exists because a fabricated guide
+paragraph once slipped into a draft; the guard is verified red-then-green
+against that exact case.
+
 Sibling checkouts are expected at `../euclid`, `../euclids-elements-lektor`
 and `../euclids-elements.org` — upstream's own scripts assume those paths.
 `scripts/bootstrap.sh` sets them up.
