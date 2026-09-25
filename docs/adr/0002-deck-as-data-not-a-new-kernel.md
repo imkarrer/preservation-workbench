@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: proposed (upstream open to it, with a no-new-dependencies constraint — see below)
 date: 2026-09-20
 revised: 2026-09-20 (after research; see docs/research/)
 ---
@@ -70,3 +70,40 @@ use it. `resolveJustification` is a function and stays outside the document,
 supplied at `init()`. The site-wide library pin remains a coupling until the
 schema carries a version; that is a later conversation. If accepted, other
 works become authoring projects on the same pipeline.
+
+## Upstream's response (2026-09-21, euclid#155)
+
+Nelson is **open to it**, with conditions, in his words:
+
+> Utilizing a schema to define point constructions and slide animations isn't
+> bad. … I'm open to different representation that can be passed to a validator
+> or conversion process as long as it was robust. Maybe utilize some functional
+> programming constructs to encode the shape of the data before validation or
+> transformation before passing them along?
+
+and a hard constraint that changes the design:
+
+> One thing I would like to stay away from is adding too many dependencies
+> throughout the code. At the very least the stuff that makes it to public
+> sites. So I would scrutinize heavily any additional entries made to
+> packages.json.
+
+**Consequence: no JSON Schema library.** Ajv or similar is exactly the
+dependency he means, and the validator runs in `check-decks.js`, which gates
+the public site. The validator is therefore hand-written and dependency-free —
+a set of small total functions (`parseSlide`, `parseAnimation`, …) returning
+either a typed value or a list of errors, which is also the "functional
+constructs to encode the shape" he asked for. TypeScript's own types do the
+static half; the runtime half is ~200 lines with no imports.
+
+He also explained his own reason for the current enum-heavy style: there was
+no validator during the port, the Java ontology was hard to follow, and the
+mapping to modules was how he kept it straight. That is a reason the shape
+exists, not an attachment to it.
+
+## Sequencing, per upstream
+
+He asked for the Euclid decks to be finished before other works, and wrote the
+project's own [`doc/roadmap.md`](https://github.com/brownnrl/euclid/blob/main/doc/roadmap.md)
+on 2026-09-21. Where that roadmap and this plan differ, his governs; ours
+records only what we are doing to help.

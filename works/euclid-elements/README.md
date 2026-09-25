@@ -19,6 +19,8 @@ Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahims
 | 2026-09-20 | [euclid#183](https://github.com/brownnrl/euclid/pull/183) merged (fixes #155, numeric-looking element names). Intro posted on #155; Nelson replied with roadmap. |
 | 2026-09-21 | Reply posted on [#155](https://github.com/brownnrl/euclid/issues/155#issuecomment-5754106719): offered XI.11 issue, slideshow feedback, Book IV decks as plain-data pilot; linked ADRs. Awaiting reply. |
 | 2026-09-21 | Docs PRs [#185](https://github.com/brownnrl/euclid/pull/185) (string animation names) and [#186](https://github.com/brownnrl/euclid/pull/186) (api/architecture accuracy) opened. Book IV planning tables drafted (`book-iv/`). Slideshow feedback drafted (`drafts/`), awaiting a hands-on pass before posting. |
+| 2026-09-21 | Both docs PRs merged. He filed [#187](https://github.com/brownnrl/euclid/issues/187) (slideshow title) from a review comment, and wrote [#188](https://github.com/brownnrl/euclid/pull/188): `CONTRIBUTING.md` + `doc/roadmap.md`. Declined changing motion dynamics; documentation-matching accepted. |
+| 2026-09-25 | [#190](https://github.com/brownnrl/euclid/pull/190) opened: Space during a walk reset the slate as well as advancing. Green light received for Book IV decks against the lektor repo. |
 
 Deck backlog upstream: lektor #21–#31, one per Book III–XIII (417 props).
 Book I decks complete; Book II done; Book III under his review.
@@ -49,3 +51,38 @@ and `NODE_OPTIONS=--no-experimental-strip-types` (Node 24 otherwise bypasses
   Anything of our own carrying Joyce's prose needs Joyce's permission to us.
 - Green Lion Press 2002: new typesetting, redrawn diagrams, corrections —
   not usable for anything.
+
+## Upstream's own roadmap (2026-09-21)
+
+Nelson wrote [`doc/roadmap.md`](https://github.com/brownnrl/euclid/blob/main/doc/roadmap.md)
+and a new `CONTRIBUTING.md` in euclid#188, after this collaboration started.
+It now governs; our plan records only what we do to help. Its principles:
+fidelity to the source; preserve first, modernize on top; **everything AI
+touches is reviewed by a person** (guides and commentary are human-written,
+never generated); canonical vs presentation; diagnostics over silence.
+
+His near-term order: decks for Books III–XIII a book at a time, close the
+diagnostics gaps the decks surface, work through archival defects. Longer term,
+each a design conversation first: touch gestures (#57), constraints (#128), an
+accessible rendering surface. Beyond Euclid: Apollonius then Hilbert — after
+the Euclid decks, explicitly.
+
+### How he works (from euclid#155)
+
+Two agents, one library-side and one slideshow-side, a coordination markdown
+file kept locally between them, one book at a time while he reviews. When the
+slideshow side hits something the library can't do, it files a geomlib issue
+and notes it in the coordination doc; he may then work the library fix in
+parallel or just serialize. **His bottleneck is review**, not authoring: he
+says conversion can be largely automated with basic review, but comparing a
+converted page against the source needs a person, and commentary needs a
+person who understands the mathematics. He is considering inviting a
+mathematics professor or students for guide and commentary work.
+
+That tells us where our help is worth most: **deck authoring and library
+fixes**, which he can review quickly, and never commentary.
+
+### On the 3D controls / XI.11
+
+He plans to address the rotation behaviour when he reaches solid geometry in
+Books XI–XIII, so it is deliberately not now. Our note stays a record.
