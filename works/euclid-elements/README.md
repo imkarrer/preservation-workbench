@@ -20,7 +20,7 @@ Prior art kept for reference: [ibrahimsag/canberead](https://github.com/ibrahims
 | 2026-09-21 | Reply posted on [#155](https://github.com/brownnrl/euclid/issues/155#issuecomment-5754106719): offered XI.11 issue, slideshow feedback, Book IV decks as plain-data pilot; linked ADRs. Awaiting reply. |
 | 2026-09-21 | Docs PRs [#185](https://github.com/brownnrl/euclid/pull/185) (string animation names) and [#186](https://github.com/brownnrl/euclid/pull/186) (api/architecture accuracy) opened. Book IV planning tables drafted (`book-iv/`). Slideshow feedback drafted (`drafts/`), awaiting a hands-on pass before posting. |
 | 2026-09-21 | Both docs PRs merged. He filed [#187](https://github.com/brownnrl/euclid/issues/187) (slideshow title) from a review comment, and wrote [#188](https://github.com/brownnrl/euclid/pull/188): `CONTRIBUTING.md` + `doc/roadmap.md`. Declined changing motion dynamics; documentation-matching accepted. |
-| 2026-09-25 | [#190](https://github.com/brownnrl/euclid/pull/190) opened: Space during a walk reset the slate as well as advancing. Green light received for Book IV decks against the lektor repo. |
+| 2026-09-25 | [euclid#190](https://github.com/brownnrl/euclid/pull/190): Space during a walk also reset the slate (pure `canvasKeyAction`, 5 tests, snapshots unchanged). [lektor#38](https://github.com/brownnrl/euclids-elements-lektor/pull/38): IV.1 + IV.6 decks, opened at two so the shape can be confirmed before the other fourteen. |
 
 Deck backlog upstream: lektor #21–#31, one per Book III–XIII (417 props).
 Book I decks complete; Book II done; Book III under his review.
