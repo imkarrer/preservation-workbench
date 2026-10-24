@@ -12,6 +12,12 @@
 label = "delegate:local"
 target_label = "work"
 
+# The DEFAULT target is this repo itself — a bead with no work:* label, like the
+# agent skills under .agents/. It has no CI, so "green" would mean "nothing ran":
+# manual keeps a human between the loop and main. The two targets below override
+# this with external, where the maintainer merges.
+merge = "manual"
+
 [targets.euclid]
 path = "~/src/euclid"
 base = "main"
