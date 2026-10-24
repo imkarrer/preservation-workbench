@@ -1,0 +1,55 @@
+# Bead-loop config for the preservation workbench.
+#
+# The beads live here; the work and the pull request happen in someone else's
+# repository. A bead picks its target with a `work:NAME` label — `work:euclid`
+# for the library, `work:lektor` for the site. A bead with neither label, or
+# with both, is held rather than failed.
+#
+# Both targets are brownnrl's repositories. Nothing merges itself: the loop
+# opens a PR on his repo from our fork and then watches, and it asks before
+# opening at all. See docs/adr/0001 for why we contribute rather than fork.
+
+label = "delegate:local"
+target_label = "work"
+
+[targets.euclid]
+path = "~/src/euclid"
+base = "main"
+base_remote = "upstream"              # brownnrl/euclid
+push_remote = "origin"                # imkarrer/euclid, our fork
+pr_repo = "brownnrl/euclid"
+setup = "npm ci"
+# The flox env supplies Node 24, and libuuid for the prebuilt node-canvas
+# binary; NODE_OPTIONS stops Node 24 bypassing ts-node/register. Without it
+# the suite cannot start on this box.
+gate = "flox activate -d ~/src/preservation-workbench -- npm test"
+merge = "external"                    # Nelson merges; the loop watches
+open_pr = "ask"                       # never surprise him with a PR
+pr_style = "plain"
+max_inflight = 1                      # one open PR at a time on his repo
+
+[targets.lektor]
+path = "~/src/euclids-elements-lektor"
+base = "main"
+base_remote = "upstream"              # brownnrl/euclids-elements-lektor
+push_remote = "origin"                # imkarrer/euclids-elements-lektor
+pr_repo = "brownnrl/euclids-elements-lektor"
+# Lektor itself comes from the workbench venv, which the flox hook builds from
+# this repo's requirements.txt; node_modules come from the euclid checkout via
+# NODE_PATH. Nothing to install per round.
+setup = "true"
+# Four gates, in increasing cost. check-decks evaluates every page's figure
+# against the real bundle and fails on any diagnostic; check-captions proves a
+# caption is carried from the proof rather than paraphrased; check-prose-fidelity
+# proves the prose changed only by tokenization (ours — it exists because a
+# fabricated guide paragraph once slipped into a draft); the build is last.
+gate = """flox activate -d ~/src/preservation-workbench -- bash -c '\
+set -e; \
+node scripts/check-decks.js; \
+bash ~/src/preservation-workbench/scripts/check-captions-changed.sh . upstream/main; \
+node ~/src/preservation-workbench/scripts/check-prose-fidelity.mjs . upstream/main; \
+lektor build --output-path "$(mktemp -d)" >/dev/null'"""
+merge = "external"
+open_pr = "ask"
+pr_style = "plain"
+max_inflight = 1
