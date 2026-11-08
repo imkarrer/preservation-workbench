@@ -76,3 +76,8 @@ _Avoid_: Nelson's repos, the main repo
 **Sibling checkout**:
 A clone of an upstream repo placed next to this one, at the relative
 path upstream's scripts expect.
+
+## Skills
+
+- euclid-fidelity: preserve Joyce's narrative faithfully; only slideshow captions are ours to write, and those are Joyce's sentence tokenized; one thing per PR; a design issue before code on anything larger than a bug; no rewrites proposed; the repo's AGENTS.md and CONTRIBUTING.md win on code style; Co-Authored-By trailers are fine (Nelson uses them)
+- euclid-verify: for ~/src/euclid — npm ci, then npm test, with the LD_LIBRARY_PATH and NODE_OPTIONS quirk from PLAN.md and where it stops being needed; for the lektor repo — node check-decks.js and what it assumes about sibling checkouts; what a passing run prints; what to do when a test needs a browser
